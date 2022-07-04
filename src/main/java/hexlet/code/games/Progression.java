@@ -1,7 +1,6 @@
 package hexlet.code.games;
 
 import hexlet.code.env.Settings;
-
 import java.util.Scanner;
 
 public class Progression {
@@ -19,7 +18,6 @@ public class Progression {
     }
 
     public static int getCorrectAnswer(int[][] sequence) {
-
         for (int[] column : sequence) {
             if (column[1] == 1) {
                 return column[0];
@@ -56,13 +54,10 @@ public class Progression {
 
         for (int i = 1; i < length; i++) {
             sequence[i][0] = sequence[i - 1][0] + increment;
-            if (i == maskedSymbolIndex) {
-                sequence[i][1] = 1;
-            } else {
-                sequence[i][1] = 0;
-            }
-
+            sequence[i][1] = 0;
         }
+
+        sequence[maskedSymbolIndex][1] = 1;
 
         return sequence;
     }

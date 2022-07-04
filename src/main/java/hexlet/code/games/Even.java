@@ -13,9 +13,8 @@ public final class Even {
         Engine.printQuestion(Integer.toString(randomValue));
         String answer = scanner.nextLine().toLowerCase();
 
-        boolean result = isEven ? (answer.equals("yes")) : (answer.equals("no"));
-
         String correctAnswer = isEven ? "yes" : "no";
+        boolean result = (answer.equals(correctAnswer));
 
         return Engine.analyzeAnswer(result, answer, correctAnswer);
     }

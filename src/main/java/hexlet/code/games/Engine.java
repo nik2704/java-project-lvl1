@@ -36,12 +36,16 @@ public final class Engine {
 
     public static void startEven(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Settings.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT;
 
         System.out.println("Answer 'yes' if number even otherwise answer 'no'.");
 
-        while (Even.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
-            repeatCount--;
+        boolean stepResult = true;
+        while (stepResult && (repeatCount > 0)) {
+            stepResult = Even.nextStep(scanner, repeatCount);
+            if (stepResult) {
+                repeatCount--;
+            }
         }
 
         printConclusion(repeatCount, userName);
@@ -49,12 +53,16 @@ public final class Engine {
 
     public static void startCalc(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Settings.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT;
 
         System.out.println("What is the result of the expression?");
 
-        while (Calc.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
-            repeatCount--;
+        boolean stepResult = true;
+        while (stepResult && (repeatCount > 0)) {
+            stepResult = Calc.nextStep(scanner, repeatCount);
+            if (stepResult) {
+                repeatCount--;
+            }
         }
 
         printConclusion(repeatCount, userName);
@@ -62,12 +70,16 @@ public final class Engine {
 
     public static void startGcd(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Settings.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT;
 
         System.out.println("Find the greatest common divisor of given numbers.");
 
-        while (Gcd.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
-            repeatCount--;
+        boolean stepResult = true;
+        while (stepResult && (repeatCount > 0)) {
+            stepResult = Gcd.nextStep(scanner, repeatCount);
+            if (stepResult) {
+                repeatCount--;
+            }
         }
 
         printConclusion(repeatCount, userName);
@@ -75,11 +87,31 @@ public final class Engine {
 
     public static void startProgression(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Settings.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT;
 
+        boolean stepResult = true;
         System.out.println("What number is missing in the progression?");
-        while (Progression.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
-            repeatCount--;
+        while (stepResult && (repeatCount > 0)) {
+            stepResult = Progression.nextStep(scanner, repeatCount);
+            if (stepResult) {
+                repeatCount--;
+            }
+        }
+
+        printConclusion(repeatCount, userName);
+    }
+
+    public static void startPrime(String userName) {
+        Scanner scanner = new Scanner(System.in);
+        int repeatCount = Settings.REPEAT_COUNT;
+
+        boolean stepResult = true;
+        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+        while (stepResult && (repeatCount > 0)) {
+            stepResult = Prime.nextStep(scanner, repeatCount);
+            if (stepResult) {
+                repeatCount--;
+            }
         }
 
         printConclusion(repeatCount, userName);

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class App {
     public static String[] getGamesArr() {
-        String[] games = {"1 - Greet", "2 - Even", "3 - Calc", "4 - GCD", "5 - Progression", "0 - Exit"};
+        String[] games = {"1 - Greet", "2 - Even", "3 - Calc", "4 - GCD", "5 - Progression", "6 - Prime", "0 - Exit"};
 
         return games;
     }
@@ -37,6 +37,9 @@ public class App {
                 break;
             case (Settings.GAME_PROGRESSION):
                 Engine.startProgression(userName);
+                break;
+            case (Settings.GAME_PRIME):
+                Engine.startPrime(userName);
                 break;
             default:
         }
