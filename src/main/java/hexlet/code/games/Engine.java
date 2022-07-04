@@ -1,11 +1,14 @@
 package hexlet.code.games;
 
+import java.util.Scanner;
+
 public final class Engine {
-    public static final int MAX_RANDOM_INT = 20;
-    public static final int MIN_RANDOM_INT = 1;
+    public static final int MAX_RANDOM_INT = 50;
+    public static final int MIN_RANDOM_INT = 10;
     public static final int REPEAT_COUNT = 3;
     public static final int GAME_EVEN = 2;
     public static final int GAME_CALC = 3;
+    public static final int GAME_GCD = 4;
 
     public static void printQuestion(String question) {
         System.out.print("Question: ");
@@ -28,15 +31,52 @@ public final class Engine {
         }
     }
 
-    public static int analyzeAnswer(boolean result, String userAnswer, String correctAnswer, int repeatCount) {
+    public static boolean analyzeAnswer(boolean result, String userAnswer, String correctAnswer) {
         if (result) {
             System.out.println("Correct!");
-            repeatCount--;
+            return true;
         } else {
             System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'.");
-            repeatCount = -1;
+            return false;
+        }
+    }
+
+    public static void startEven(String userName) {
+        Scanner scanner = new Scanner(System.in);
+        int repeatCount = Engine.REPEAT_COUNT - 1;
+
+        System.out.println("Answer 'yes' if number even otherwise answer 'no'.");
+
+        while (Even.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
+            repeatCount--;
         }
 
-        return repeatCount;
+        printConclusion(repeatCount, userName);
+    }
+
+    public static void startCalc(String userName) {
+        Scanner scanner = new Scanner(System.in);
+        int repeatCount = Engine.REPEAT_COUNT - 1;
+
+        System.out.println("What is the result of the expression?");
+
+        while (Calc.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
+            repeatCount--;
+        }
+
+        printConclusion(repeatCount, userName);
+    }
+
+    public static void startGcd(String userName) {
+        Scanner scanner = new Scanner(System.in);
+        int repeatCount = Engine.REPEAT_COUNT - 1;
+
+        System.out.println("Find the greatest common divisor of given numbers.");
+
+        while (Gcd.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
+            repeatCount--;
+        }
+
+        printConclusion(repeatCount, userName);
     }
 }

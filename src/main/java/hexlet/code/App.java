@@ -1,15 +1,17 @@
 package hexlet.code;
 
-import hexlet.code.games.Calc;
 import hexlet.code.games.Engine;
-import hexlet.code.games.Even;
 
 import java.util.Scanner;
 
 public class App {
+    public static String[] getGamesArr() {
+        String[] games = {"1 - Greet", "2 - Even", "3 - Calc", "4 - GCD", "0 - Exit"};
 
+        return games;
+    }
     public static void main(String[] args) {
-        String[] games = {"1 - Greet", "2 - Even", "3 - Calc", "0 - Exit"};
+        String[] games = App.getGamesArr();
         printMainMenu(games);
         int gameNumber = getGameNumber(games);
         if (gameNumber > 0) {
@@ -24,10 +26,13 @@ public class App {
     public static void gameSwitcher(int gameNumber, String userName) {
         switch (gameNumber) {
             case (Engine.GAME_EVEN):
-                Even.start(userName);
+                Engine.startEven(userName);
                 break;
             case (Engine.GAME_CALC):
-                Calc.start(userName);
+                Engine.startCalc(userName);
+                break;
+            case (Engine.GAME_GCD):
+                Engine.startGcd(userName);
                 break;
             default:
         }
