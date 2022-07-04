@@ -1,33 +1,24 @@
-package hexlet.code;
+package hexlet.code.games;
 
 import java.util.Scanner;
 
 public final class Even {
-    public static final int MAX_RANDOM_INT = 1000;
-    public static final int MIN_RANDOM_INT = 10;
-    public static final int REPEAT_COUNT = 3;
-
-    private int getRandom() {
-        int max = Even.MAX_RANDOM_INT;
-        int min = Even.MIN_RANDOM_INT;
-
-        max -= min;
-        return (int) (Math.random() * ++max) + min;
-    }
 
     public void start(String userName) {
-        int repeatCount = Even.REPEAT_COUNT;
+        int repeatCount = Engine.REPEAT_COUNT;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Answer 'yes' if number even otherwise answer 'no'.");
         while (repeatCount > 0) {
-            int randomValue = getRandom();
+            int randomValue = Engine.getRandom();
             System.out.print("Question: ");
             System.out.println(randomValue);
             System.out.print("Your answer: ");
             String answer = scanner.nextLine().toLowerCase();
 
             boolean isEven = randomValue % 2 == 0;
-            boolean result = isEven == (answer.equals("yes"));
+
+            boolean result = isEven ? (answer.equals("yes")) : false;
+
             String correctAnswer = isEven ? "yes" : "no";
 
             if (result) {
