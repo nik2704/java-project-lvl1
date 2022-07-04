@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import hexlet.code.games.Calc;
+import hexlet.code.games.Engine;
 import hexlet.code.games.Even;
 
 import java.util.Scanner;
@@ -21,12 +23,12 @@ public class App {
 
     public static void gameSwitcher(int gameNumber, String userName) {
         switch (gameNumber) {
-            case (2):
-                Even even = new Even();
-                even.start(userName);
+            case (Engine.GAME_EVEN):
+                Even.start(userName);
                 break;
-//               case (3):
-//                   break;
+            case (Engine.GAME_CALC):
+                Calc.start(userName);
+                break;
             default:
         }
     }
