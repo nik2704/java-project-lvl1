@@ -1,11 +1,13 @@
 package hexlet.code.games;
 
+import hexlet.code.env.Settings;
+
 import java.util.Scanner;
 
 public class Gcd {
     public static boolean nextStep(Scanner scanner, int repeatCount) {
-        int randomValue1 = Engine.getRandom();
-        int randomValue2 = Engine.getRandom();
+        int randomValue1 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        int randomValue2 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
 
         int correctAnswer = gcd(randomValue1, randomValue2);
         Engine.printQuestion(randomValue1 + " " + randomValue2);

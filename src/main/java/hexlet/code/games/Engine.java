@@ -1,24 +1,17 @@
 package hexlet.code.games;
 
+import hexlet.code.env.Settings;
+
 import java.util.Scanner;
 
 public final class Engine {
-    public static final int MAX_RANDOM_INT = 50;
-    public static final int MIN_RANDOM_INT = 10;
-    public static final int REPEAT_COUNT = 3;
-    public static final int GAME_EVEN = 2;
-    public static final int GAME_CALC = 3;
-    public static final int GAME_GCD = 4;
 
     public static void printQuestion(String question) {
         System.out.print("Question: ");
         System.out.println(question);
         System.out.print("Your answer: ");
     }
-    public static int getRandom() {
-        int max = Engine.MAX_RANDOM_INT;
-        int min = Engine.MIN_RANDOM_INT;
-
+    public static int getRandom(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
@@ -43,7 +36,7 @@ public final class Engine {
 
     public static void startEven(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Engine.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT - 1;
 
         System.out.println("Answer 'yes' if number even otherwise answer 'no'.");
 
@@ -56,7 +49,7 @@ public final class Engine {
 
     public static void startCalc(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Engine.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT - 1;
 
         System.out.println("What is the result of the expression?");
 
@@ -69,11 +62,23 @@ public final class Engine {
 
     public static void startGcd(String userName) {
         Scanner scanner = new Scanner(System.in);
-        int repeatCount = Engine.REPEAT_COUNT - 1;
+        int repeatCount = Settings.REPEAT_COUNT - 1;
 
         System.out.println("Find the greatest common divisor of given numbers.");
 
         while (Gcd.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
+            repeatCount--;
+        }
+
+        printConclusion(repeatCount, userName);
+    }
+
+    public static void startProgression(String userName) {
+        Scanner scanner = new Scanner(System.in);
+        int repeatCount = Settings.REPEAT_COUNT - 1;
+
+        System.out.println("What number is missing in the progression?");
+        while (Progression.nextStep(scanner, repeatCount) && (repeatCount > 0)) {
             repeatCount--;
         }
 
