@@ -1,15 +1,16 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 import java.util.Scanner;
 
-public class Progression {
-    public static boolean nextStep(Scanner scanner, int repeatCount) {
+public final class Progression implements Game {
+    public boolean nextStep(Scanner scanner, int repeatCount) {
 
         int[][] sequence = Progression.getSequence();
-        int correctAnswer = getCorrectAnswer(sequence);
+        int correctAnswer = Progression.getCorrectAnswer(sequence);
 
-        Engine.printQuestion(getQuestionString(sequence));
+        Engine.printQuestion(Progression.getQuestionString(sequence));
         int answer = scanner.nextInt();
 
         boolean result = (answer == correctAnswer);

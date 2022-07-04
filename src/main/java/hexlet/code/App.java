@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.games.Engine;
 import hexlet.code.env.Settings;
 
 import java.util.Scanner;

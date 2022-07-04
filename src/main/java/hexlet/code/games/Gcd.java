@@ -1,15 +1,16 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public class Gcd {
-    public static boolean nextStep(Scanner scanner, int repeatCount) {
+public final class Gcd implements Game {
+    public boolean nextStep(Scanner scanner, int repeatCount) {
         int randomValue1 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         int randomValue2 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
 
-        int correctAnswer = gcd(randomValue1, randomValue2);
+        int correctAnswer = Gcd.gcd(randomValue1, randomValue2);
         Engine.printQuestion(randomValue1 + " " + randomValue2);
 
         int answer = scanner.nextInt();

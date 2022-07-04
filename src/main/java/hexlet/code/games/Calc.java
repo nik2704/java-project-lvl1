@@ -1,14 +1,15 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public class Calc {
-    public static boolean nextStep(Scanner scanner, int repeatCount) {
+public final class Calc implements Game {
+    public boolean nextStep(Scanner scanner, int repeatCount) {
         int randomValue1 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         int randomValue2 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        String operation = getRandomOperation();
+        String operation = Calc.getRandomOperation();
 
         int correctAnswer = operation.equals("*") ? randomValue1 * randomValue2 : randomValue1 + randomValue2;
 

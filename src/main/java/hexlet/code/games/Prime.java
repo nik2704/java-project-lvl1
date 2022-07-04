@@ -1,11 +1,12 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public class Prime {
-    public static boolean nextStep(Scanner scanner, int repeatCount) {
+public final class Prime implements Game {
+    public boolean nextStep(Scanner scanner, int repeatCount) {
         int randomValue = Engine.getRandom(Settings.MIN_RANDOM_START_PRIME, Settings.MAX_RANDOM_START_PRIME);
         boolean isPrime = isPrimeNumber(randomValue);
 
@@ -18,7 +19,7 @@ public class Prime {
         return Engine.analyzeAnswer(result, answer, correctAnswer);
     }
 
-    public static boolean isPrimeNumber(int number) {
+    public boolean isPrimeNumber(int number) {
         for (int i = 2; i <= Math.sqrt(number); i++) {
             if (number % i == 0) {
                 return false;
