@@ -5,20 +5,23 @@ import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public final class Gcd implements Game {
+public final class Gcd extends Game {
+    public static void start(String userName) {
+        Engine.playGame(userName, new Gcd(), "Find the greatest common divisor of given numbers.");
+    }
     public boolean nextStep(Scanner scanner, int repeatCount) {
-        int randomValue1 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        int randomValue2 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
 
-        int correctAnswer = Gcd.gcd(randomValue1, randomValue2);
-        Engine.printQuestion(randomValue1 + " " + randomValue2);
+        int correctAnswerInt = Gcd.gcd(randomValue1, randomValue2);
+        Settings.printQuestion(randomValue1 + " " + randomValue2);
 
-        int answer = scanner.nextInt();
+        int userAttempt = scanner.nextInt();
 
-        boolean result = answer == correctAnswer;
-        return Engine.analyzeAnswer(result,
-                Integer.toString(answer),
-                Integer.toString(correctAnswer));
+        this.setCorrectAnswer(Integer.toString(correctAnswerInt));
+        this.setUserAnswer(Integer.toString(userAttempt));
+
+        return userAttempt == correctAnswerInt;
     }
 
     private static int gcd(int n1, int n2) {

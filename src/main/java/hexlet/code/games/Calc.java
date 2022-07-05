@@ -5,24 +5,28 @@ import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public final class Calc implements Game {
+public final class Calc extends Game {
+    public static void start(String userName) {
+        Engine.playGame(userName, new Calc(), "What is the result of the expression?");
+    }
     public boolean nextStep(Scanner scanner, int repeatCount) {
-        int randomValue1 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        int randomValue2 = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        String operation = Calc.getRandomOperation();
+        int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        String operation = this.getRandomOperation();
 
-        int correctAnswer = operation.equals("*") ? randomValue1 * randomValue2 : randomValue1 + randomValue2;
+        int correctAnswerInt = operation.equals("*") ? randomValue1 * randomValue2 : randomValue1 + randomValue2;
 
-        Engine.printQuestion(randomValue1 + " " + operation + " " + randomValue2);
-        int answer = scanner.nextInt();
+        Settings.printQuestion(randomValue1 + " " + operation + " " + randomValue2);
+        int userAttempt = scanner.nextInt();
 
-        boolean result = answer == correctAnswer;
-        return Engine.analyzeAnswer(result,
-                Integer.toString(answer),
-                Integer.toString(correctAnswer));
+
+        this.setCorrectAnswer(Integer.toString(correctAnswerInt));
+        this.setUserAnswer(Integer.toString(userAttempt));
+
+        return userAttempt == correctAnswerInt;
     }
 
-    public static String getRandomOperation() {
+    private String getRandomOperation() {
         int max = 1;
         int min = 0;
         String[] arr = {"*", "+"};

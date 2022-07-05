@@ -5,19 +5,20 @@ import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public final class Even implements Game {
-
+public final class Even extends Game {
+    public static void start(String userName) {
+        Engine.playGame(userName, new Even(), "Answer 'yes' if number even otherwise answer 'no'.");
+    }
     public boolean nextStep(Scanner scanner, int repeatCount) {
-        int randomValue = Engine.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        int randomValue = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         boolean isEven = randomValue % 2 == 0;
 
-        Engine.printQuestion(Integer.toString(randomValue));
-        String answer = scanner.nextLine().toLowerCase();
+        Settings.printQuestion(Integer.toString(randomValue));
+        String userAttempt = scanner.nextLine().toLowerCase();
 
-        String correctAnswer = isEven ? "yes" : "no";
-        boolean result = (answer.equals(correctAnswer));
+        this.setCorrectAnswer(isEven ? "yes" : "no");
+        this.setUserAnswer(userAttempt);
 
-        return Engine.analyzeAnswer(result, answer, correctAnswer);
+        return (userAttempt.equals(this.getCorrectAnswer()));
     }
-
 }

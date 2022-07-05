@@ -1,19 +1,36 @@
 package hexlet.code;
 
-import hexlet.code.env.Settings;
+import hexlet.code.games.Calc;
+import hexlet.code.games.Even;
+import hexlet.code.games.Gcd;
+import hexlet.code.games.Prime;
+import hexlet.code.games.Progression;
 
 import java.util.Scanner;
 
 public class App {
-    public static String[] getGamesArr() {
-        String[] games = {"1 - Greet", "2 - Even", "3 - Calc", "4 - GCD", "5 - Progression", "6 - Prime", "0 - Exit"};
+    public static final int GAME_EVEN = 2;
+    public static final int GAME_CALC = 3;
+    public static final int GAME_GCD = 4;
+    public static final int GAME_PROGRESSION = 5;
+    public static final int GAME_PRIME = 6;
+    private static final String[] GAMES = {
+        "1 - Greet",
+        "2 - Even",
+        "3 - Calc",
+        "4 - GCD",
+        "5 - Progression",
+        "6 - Prime",
+        "0 - Exit"
+    };
 
-        return games;
-    }
     public static void main(String[] args) {
-        String[] games = App.getGamesArr();
-        printMainMenu(games);
-        int gameNumber = getGameNumber(games);
+        System.out.println("Please enter the game number and press Enter.");
+        for (String game : GAMES) {
+            System.out.println(game);
+        }
+
+        int gameNumber = getGameNumber(GAMES);
         if (gameNumber > 0) {
             if (gameNumber > 0) {
                 String userName = Cli.greeting();
@@ -23,33 +40,7 @@ public class App {
 
     }
 
-    public static void gameSwitcher(int gameNumber, String userName) {
-        switch (gameNumber) {
-            case (Settings.GAME_EVEN):
-                Engine.startEven(userName);
-                break;
-            case (Settings.GAME_CALC):
-                Engine.startCalc(userName);
-                break;
-            case (Settings.GAME_GCD):
-                Engine.startGcd(userName);
-                break;
-            case (Settings.GAME_PROGRESSION):
-                Engine.startProgression(userName);
-                break;
-            case (Settings.GAME_PRIME):
-                Engine.startPrime(userName);
-                break;
-            default:
-        }
-    }
-    public static void printMainMenu(String[] games) {
-        System.out.println("Please enter the game number and press Enter.");
-        for (String game : games) {
-            System.out.println(game);
-        }
-    }
-    public static int getGameNumber(String[] games) {
+    private static int getGameNumber(String[] games) {
         int gameNumber;
 
         while (true) {
@@ -65,4 +56,26 @@ public class App {
 
         return gameNumber;
     }
+
+    public static void gameSwitcher(int gameNumber, String userName) {
+        switch (gameNumber) {
+            case (GAME_EVEN):
+                Even.start(userName);
+                break;
+            case (GAME_CALC):
+                Calc.start(userName);
+                break;
+            case (GAME_GCD):
+                Gcd.start(userName);
+                break;
+            case (GAME_PROGRESSION):
+                Progression.start(userName);
+                break;
+            case (GAME_PRIME):
+                Prime.start(userName);
+                break;
+            default:
+        }
+    }
+
 }

@@ -5,21 +5,26 @@ import hexlet.code.env.Settings;
 
 import java.util.Scanner;
 
-public final class Prime implements Game {
+public final class Prime extends Game {
+    public static final int MAX_RANDOM_START_PRIME = 50;
+    public static final int MIN_RANDOM_START_PRIME = 2;
+    public static void start(String userName) {
+        Engine.playGame(userName, new Prime(), "Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+    }
     public boolean nextStep(Scanner scanner, int repeatCount) {
-        int randomValue = Engine.getRandom(Settings.MIN_RANDOM_START_PRIME, Settings.MAX_RANDOM_START_PRIME);
-        boolean isPrime = isPrimeNumber(randomValue);
+        int randomValue = Settings.getRandom(MIN_RANDOM_START_PRIME, MAX_RANDOM_START_PRIME);
+        boolean isPrime = this.isPrimeNumber(randomValue);
 
-        Engine.printQuestion(Integer.toString(randomValue));
-        String answer = scanner.nextLine().toLowerCase();
+        Settings.printQuestion(Integer.toString(randomValue));
+        String userAttempt = scanner.nextLine().toLowerCase();
 
-        String correctAnswer = isPrime ? "yes" : "no";
-        boolean result = (answer.equals(correctAnswer));
+        this.setCorrectAnswer(isPrime ? "yes" : "no");
+        this.setUserAnswer(userAttempt);
 
-        return Engine.analyzeAnswer(result, answer, correctAnswer);
+        return (userAttempt.equals(this.getCorrectAnswer()));
     }
 
-    public boolean isPrimeNumber(int number) {
+    private boolean isPrimeNumber(int number) {
         for (int i = 2; i <= Math.sqrt(number); i++) {
             if (number % i == 0) {
                 return false;
