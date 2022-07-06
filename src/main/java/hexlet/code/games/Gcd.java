@@ -9,7 +9,7 @@ public final class Gcd extends Game {
     public static void start(String userName) {
         Engine.playGame(userName, new Gcd(), "Find the greatest common divisor of given numbers.");
     }
-    public boolean nextStep(Scanner scanner, int repeatCount) {
+    public boolean nextStep(Scanner scanner) {
         int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
 

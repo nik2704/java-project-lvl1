@@ -6,7 +6,7 @@ public abstract class Game implements GameInterface {
     private String correctAnswer;
     private String answer;
 
-    public abstract boolean nextStep(Scanner scanner, int repeatCount);
+    public abstract boolean nextStep(Scanner scanner);
 
     public final String getUserAnswer() {
         return this.answer;

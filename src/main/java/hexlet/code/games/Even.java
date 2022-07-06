@@ -9,7 +9,7 @@ public final class Even extends Game {
     public static void start(String userName) {
         Engine.playGame(userName, new Even(), "Answer 'yes' if number even otherwise answer 'no'.");
     }
-    public boolean nextStep(Scanner scanner, int repeatCount) {
+    public boolean nextStep(Scanner scanner) {
         int randomValue = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         boolean isEven = randomValue % 2 == 0;
 

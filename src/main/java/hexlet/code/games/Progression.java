@@ -5,16 +5,16 @@ import hexlet.code.env.Settings;
 import java.util.Scanner;
 
 public final class Progression extends Game {
-    public static final int MAX_RANDOM_SQUENCE_LENGTH = 15;
-    public static final int MIN_RANDOM_SEQUENCE_LENGTH = 6;
-    public static final int MAX_RANDOM_SEQUENCE_INCREMENT = 10;
-    public static final int MIN_RANDOM_SEQUENCE_INCREMENT = 2;
-    public static final int MAX_RANDOM_START_SEQUENCE_POINT = 50;
-    public static final int MIN_RANDOM_START_SEQUENCE_POINT = 2;
+    private static final int MAX_RANDOM_SQUENCE_LENGTH = 15;
+    private static final int MIN_RANDOM_SEQUENCE_LENGTH = 6;
+    private static final int MAX_RANDOM_SEQUENCE_INCREMENT = 10;
+    private static final int MIN_RANDOM_SEQUENCE_INCREMENT = 2;
+    private static final int MAX_RANDOM_START_SEQUENCE_POINT = 50;
+    private static final int MIN_RANDOM_START_SEQUENCE_POINT = 2;
     public static void start(String userName) {
         Engine.playGame(userName, new Progression(), "What number is missing in the progression?");
     }
-    public boolean nextStep(Scanner scanner, int repeatCount) {
+    public boolean nextStep(Scanner scanner) {
 
         int[][] sequence = this.getSequence();
         int correctAnswerInt = this.getCorrectAnswer(sequence);

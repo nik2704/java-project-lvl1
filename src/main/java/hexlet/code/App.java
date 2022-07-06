@@ -9,11 +9,11 @@ import hexlet.code.games.Progression;
 import java.util.Scanner;
 
 public class App {
-    public static final int GAME_EVEN = 2;
-    public static final int GAME_CALC = 3;
-    public static final int GAME_GCD = 4;
-    public static final int GAME_PROGRESSION = 5;
-    public static final int GAME_PRIME = 6;
+    private static final int GAME_EVEN = 2;
+    private static final int GAME_CALC = 3;
+    private static final int GAME_GCD = 4;
+    private static final int GAME_PROGRESSION = 5;
+    private static final int GAME_PRIME = 6;
     private static final String[] GAMES = {
         "1 - Greet",
         "2 - Even",
@@ -31,11 +31,10 @@ public class App {
         }
 
         int gameNumber = getGameNumber(GAMES);
+
         if (gameNumber > 0) {
-            if (gameNumber > 0) {
-                String userName = Cli.greeting();
-                gameSwitcher(gameNumber, userName);
-            }
+            String userName = Cli.greeting();
+            gameSwitcher(gameNumber, userName);
         }
 
     }
@@ -50,7 +49,7 @@ public class App {
             if (gameNumber >= 0 && gameNumber < games.length) {
                 break;
             } else {
-                System.out.println("There if no such game");
+                System.out.println("There is no such game");
             }
         }
 

@@ -9,7 +9,7 @@ public final class Calc extends Game {
     public static void start(String userName) {
         Engine.playGame(userName, new Calc(), "What is the result of the expression?");
     }
-    public boolean nextStep(Scanner scanner, int repeatCount) {
+    public boolean nextStep(Scanner scanner) {
         int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
         String operation = this.getRandomOperation();
@@ -27,11 +27,8 @@ public final class Calc extends Game {
     }
 
     private String getRandomOperation() {
-        int max = 1;
-        int min = 0;
         String[] arr = {"*", "+"};
-        int res =  (int) (Math.random() * ++max) + min;
 
-        return arr[res];
+        return arr[Settings.getRandom(0, 1)];
     }
 }

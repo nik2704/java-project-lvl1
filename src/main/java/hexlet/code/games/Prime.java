@@ -6,12 +6,12 @@ import hexlet.code.env.Settings;
 import java.util.Scanner;
 
 public final class Prime extends Game {
-    public static final int MAX_RANDOM_START_PRIME = 50;
-    public static final int MIN_RANDOM_START_PRIME = 2;
+    private static final int MAX_RANDOM_START_PRIME = 50;
+    private static final int MIN_RANDOM_START_PRIME = 2;
     public static void start(String userName) {
         Engine.playGame(userName, new Prime(), "Answer 'yes' if given number is prime. Otherwise answer 'no'.");
     }
-    public boolean nextStep(Scanner scanner, int repeatCount) {
+    public boolean nextStep(Scanner scanner) {
         int randomValue = Settings.getRandom(MIN_RANDOM_START_PRIME, MAX_RANDOM_START_PRIME);
         boolean isPrime = this.isPrimeNumber(randomValue);
 
