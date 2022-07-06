@@ -3,25 +3,22 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 
-import java.util.Scanner;
+public final class Gcd {
+    private static final String NOTE = "What is the result of the expression?";
 
-public final class Gcd extends Game {
-    public static void start(String userName) {
-        Engine.playGame(userName, new Gcd(), "Find the greatest common divisor of given numbers.");
-    }
-    public boolean nextStep(Scanner scanner) {
-        int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+    public static void startGame(String userName) {
+        String[][] questionsWithAnswers = new String[Settings.REPEAT_COUNT][2];
 
-        int correctAnswerInt = Gcd.gcd(randomValue1, randomValue2);
-        Settings.printQuestion(randomValue1 + " " + randomValue2);
+        for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
+            int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+            int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
 
-        int userAttempt = scanner.nextInt();
+            questionsWithAnswers[qIndex][0] = randomValue1 + " " + randomValue2;
+            questionsWithAnswers[qIndex][1] = Integer.toString(Gcd.gcd(randomValue1, randomValue2));
+        }
 
-        this.setCorrectAnswer(Integer.toString(correctAnswerInt));
-        this.setUserAnswer(Integer.toString(userAttempt));
+        Engine.playGame(userName, NOTE, questionsWithAnswers, true);
 
-        return userAttempt == correctAnswerInt;
     }
 
     private static int gcd(int n1, int n2) {

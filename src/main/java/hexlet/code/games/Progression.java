@@ -2,33 +2,32 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 import hexlet.code.env.Settings;
-import java.util.Scanner;
 
-public final class Progression extends Game {
+public final class Progression {
     private static final int MAX_RANDOM_SQUENCE_LENGTH = 15;
     private static final int MIN_RANDOM_SEQUENCE_LENGTH = 6;
     private static final int MAX_RANDOM_SEQUENCE_INCREMENT = 10;
     private static final int MIN_RANDOM_SEQUENCE_INCREMENT = 2;
     private static final int MAX_RANDOM_START_SEQUENCE_POINT = 50;
     private static final int MIN_RANDOM_START_SEQUENCE_POINT = 2;
-    public static void start(String userName) {
-        Engine.playGame(userName, new Progression(), "What number is missing in the progression?");
+
+    private static final String NOTE = "What number is missing in the progression?";
+
+    public static void startGame(String userName) {
+        String[][] questionsWithAnswers = new String[Settings.REPEAT_COUNT][2];
+
+        for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
+            int[][] sequence = getSequence();
+
+            questionsWithAnswers[qIndex][0] = getQuestionString(sequence);
+            questionsWithAnswers[qIndex][1] = Integer.toString(getCorrectAnswer(sequence));
+        }
+
+        Engine.playGame(userName, NOTE, questionsWithAnswers, true);
+
     }
-    public boolean nextStep(Scanner scanner) {
 
-        int[][] sequence = this.getSequence();
-        int correctAnswerInt = this.getCorrectAnswer(sequence);
-
-        Settings.printQuestion(this.getQuestionString(sequence));
-        int userAttempt = scanner.nextInt();
-
-        this.setCorrectAnswer(Integer.toString(correctAnswerInt));
-        this.setUserAnswer(Integer.toString(userAttempt));
-
-        return (userAttempt == correctAnswerInt);
-    }
-
-    private int[][] getSequence() {
+    private static int[][] getSequence() {
 
         int length =  Settings.getRandom(MIN_RANDOM_SEQUENCE_LENGTH,
                 MAX_RANDOM_SQUENCE_LENGTH);
@@ -51,7 +50,7 @@ public final class Progression extends Game {
         return sequence;
     }
 
-    private int getCorrectAnswer(int[][] sequence) {
+    private static int getCorrectAnswer(int[][] sequence) {
         for (int[] column : sequence) {
             if (column[1] == 1) {
                 return column[0];
@@ -60,7 +59,7 @@ public final class Progression extends Game {
         return -1;
     }
 
-    private String getQuestionString(int[][] sequence) {
+    private static String getQuestionString(int[][] sequence) {
         StringBuilder line = new StringBuilder();
 
         for (int i = 0; i < sequence.length; i++) {

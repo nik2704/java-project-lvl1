@@ -1,37 +1,48 @@
 package hexlet.code;
 
 import hexlet.code.env.Settings;
-import hexlet.code.games.GameInterface;
 
 import java.util.Scanner;
 
 public final class Engine {
     public static final String MSG_CORRECT_TEMPLATE = "Correct!";
 
-    public static void playGame(String userName, GameInterface game, String inviteMessage) {
+    public static void playGame(String userName,
+                                String inviteMessage,
+                                String[][] questionsWithAnswers,
+                                boolean compareInteger) {
         Scanner scanner = new Scanner(System.in);
+        boolean comparisonResult = false;
 
-        boolean result = false;
         System.out.println(inviteMessage);
 
         for (int step = 0; step < Settings.REPEAT_COUNT; step++) {
-            result = game.nextStep(scanner);
+            Settings.printQuestion(questionsWithAnswers[step][0]);
+            String userAttemptStr = "";
 
-            String message = result ? MSG_CORRECT_TEMPLATE : "'" + game.getUserAnswer()
-                    + "' is wrong answer ;(. Correct answer was '" + game.getCorrectAnswer() + "'.";
+            if (compareInteger) {
+                int userAttemptInt = scanner.nextInt();
+                userAttemptStr = Integer.toString(userAttemptInt);
+                comparisonResult = userAttemptInt == Integer.parseInt(questionsWithAnswers[step][1]);
+            } else {
+                userAttemptStr = scanner.nextLine().toLowerCase();
+                comparisonResult = userAttemptStr.equals(questionsWithAnswers[step][1]);
+            }
+
+            String message = comparisonResult ? MSG_CORRECT_TEMPLATE : "'" + userAttemptStr
+                    + "' is wrong answer ;(. Correct answer was '" + questionsWithAnswers[step][1] + "'.";
 
             System.out.println(message);
 
-            if (!result) {
+            if (!comparisonResult) {
                 break;
             }
         }
 
-        if (result) {
+        if (comparisonResult) {
             System.out.println("Congratulations, " + userName + "!");
         } else {
             System.out.println("Let's try again, " + userName + "!");
         }
     }
-
 }

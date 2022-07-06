@@ -59,19 +59,19 @@ public class App {
     public static void gameSwitcher(int gameNumber, String userName) {
         switch (gameNumber) {
             case (GAME_EVEN):
-                Even.start(userName);
+                Even.startGame(userName);
                 break;
             case (GAME_CALC):
-                Calc.start(userName);
+                Calc.startGame(userName);
                 break;
             case (GAME_GCD):
-                Gcd.start(userName);
+                Gcd.startGame(userName);
                 break;
             case (GAME_PROGRESSION):
-                Progression.start(userName);
+                Progression.startGame(userName);
                 break;
             case (GAME_PRIME):
-                Prime.start(userName);
+                Prime.startGame(userName);
                 break;
             default:
         }

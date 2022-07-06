@@ -3,30 +3,28 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 
-import java.util.Scanner;
+public final class Calc {
+    private static final String NOTE = "What is the result of the expression?";
 
-public final class Calc extends Game {
-    public static void start(String userName) {
-        Engine.playGame(userName, new Calc(), "What is the result of the expression?");
-    }
-    public boolean nextStep(Scanner scanner) {
-        int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-        String operation = this.getRandomOperation();
+    public static void startGame(String userName) {
+        String[][] questionsWithAnswers = new String[Settings.REPEAT_COUNT][2];
 
-        int correctAnswerInt = operation.equals("*") ? randomValue1 * randomValue2 : randomValue1 + randomValue2;
+        for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
+            int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+            int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+            String operation = getRandomOperation();
 
-        Settings.printQuestion(randomValue1 + " " + operation + " " + randomValue2);
-        int userAttempt = scanner.nextInt();
+            int correctAnswerInt = operation.equals("*") ? randomValue1 * randomValue2 : randomValue1 + randomValue2;
 
+            questionsWithAnswers[qIndex][0] = randomValue1 + " " + operation + " " + randomValue2;
+            questionsWithAnswers[qIndex][1] = Integer.toString(correctAnswerInt);
+        }
 
-        this.setCorrectAnswer(Integer.toString(correctAnswerInt));
-        this.setUserAnswer(Integer.toString(userAttempt));
+        Engine.playGame(userName, NOTE, questionsWithAnswers, true);
 
-        return userAttempt == correctAnswerInt;
     }
 
-    private String getRandomOperation() {
+    private static String getRandomOperation() {
         String[] arr = {"*", "+"};
 
         return arr[Settings.getRandom(0, 1)];
