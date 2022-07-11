@@ -6,18 +6,19 @@ import hexlet.code.env.Settings;
 public final class Gcd {
     private static final String NOTE = "What is the result of the expression?";
 
-    public static void startGame(String userName) {
-        String[][] questionsWithAnswers = new String[Settings.REPEAT_COUNT][2];
+    public static void startGame() {
+        String[] questions = new String[Settings.REPEAT_COUNT];
+        String[] answers = new String[Settings.REPEAT_COUNT];
 
         for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
             int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
             int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
 
-            questionsWithAnswers[qIndex][0] = randomValue1 + " " + randomValue2;
-            questionsWithAnswers[qIndex][1] = Integer.toString(Gcd.gcd(randomValue1, randomValue2));
+            questions[qIndex] = randomValue1 + " " + randomValue2;
+            answers[qIndex] = Integer.toString(Gcd.gcd(randomValue1, randomValue2));
         }
 
-        Engine.playGame(userName, NOTE, questionsWithAnswers, true);
+        Engine.playGame(NOTE, questions, answers);
 
     }
 

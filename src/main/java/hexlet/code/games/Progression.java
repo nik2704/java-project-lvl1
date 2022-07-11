@@ -3,8 +3,10 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 import hexlet.code.env.Settings;
 
+import java.util.Arrays;
+
 public final class Progression {
-    private static final int MAX_RANDOM_SQUENCE_LENGTH = 15;
+    private static final int MAX_RANDOM_SEQUENCE_LENGTH = 15;
     private static final int MIN_RANDOM_SEQUENCE_LENGTH = 6;
     private static final int MAX_RANDOM_SEQUENCE_INCREMENT = 10;
     private static final int MIN_RANDOM_SEQUENCE_INCREMENT = 2;
@@ -13,64 +15,54 @@ public final class Progression {
 
     private static final String NOTE = "What number is missing in the progression?";
 
-    public static void startGame(String userName) {
-        String[][] questionsWithAnswers = new String[Settings.REPEAT_COUNT][2];
+    public static void startGame() {
+        String[] questions = new String[Settings.REPEAT_COUNT];
+        String[] answers = new String[Settings.REPEAT_COUNT];
 
         for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
-            int[][] sequence = getSequence();
+            int[] sequence = getSequence();
+            int answerIndex = Settings.getRandom(0, sequence.length - 1);
 
-            questionsWithAnswers[qIndex][0] = getQuestionString(sequence);
-            questionsWithAnswers[qIndex][1] = Integer.toString(getCorrectAnswer(sequence));
+            answers[qIndex] = String.valueOf(sequence[answerIndex]);
+            questions[qIndex] = getQuestionString(sequence, answerIndex);
         }
 
-        Engine.playGame(userName, NOTE, questionsWithAnswers, true);
+        System.out.println(Arrays.toString(questions));
+        System.out.println(Arrays.toString(answers));
+        Engine.playGame(NOTE, questions, answers);
 
     }
 
-    private static int[][] getSequence() {
-
+    private static int[] getSequence() {
         int length =  Settings.getRandom(MIN_RANDOM_SEQUENCE_LENGTH,
-                MAX_RANDOM_SQUENCE_LENGTH);
+                MAX_RANDOM_SEQUENCE_LENGTH);
 
-        int maskedSymbolIndex = (int) (Math.random() * length);
         int increment = Settings.getRandom(MIN_RANDOM_SEQUENCE_INCREMENT,
                 MAX_RANDOM_SEQUENCE_INCREMENT);
 
-        int[][] sequence = new int[length][2];
-        sequence[0][0] = Settings.getRandom(MIN_RANDOM_START_SEQUENCE_POINT,
+        int[] sequence = new int[length];
+        sequence[0] = Settings.getRandom(MIN_RANDOM_START_SEQUENCE_POINT,
                 MAX_RANDOM_START_SEQUENCE_POINT);
 
         for (int i = 1; i < length; i++) {
-            sequence[i][0] = sequence[i - 1][0] + increment;
-            sequence[i][1] = 0;
+            sequence[i] = sequence[i - 1] + increment;
         }
-
-        sequence[maskedSymbolIndex][1] = 1;
 
         return sequence;
     }
 
-    private static int getCorrectAnswer(int[][] sequence) {
-        for (int[] column : sequence) {
-            if (column[1] == 1) {
-                return column[0];
-            }
-        }
-        return -1;
-    }
-
-    private static String getQuestionString(int[][] sequence) {
-        StringBuilder line = new StringBuilder();
+    private static String getQuestionString(int[] sequence, int answerIndex) {
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < sequence.length; i++) {
+            result.append(answerIndex != i ? String.valueOf(sequence[i]) : "..");
 
-            line.append(sequence[i][1] == 0 ? sequence[i][0] : "..");
             if (i < sequence.length - 1) {
-                line.append(" ");
+                result.append(" ");
             }
         }
 
-        return line.toString();
+        return result.toString();
     }
 
 }

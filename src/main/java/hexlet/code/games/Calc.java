@@ -6,27 +6,39 @@ import hexlet.code.env.Settings;
 public final class Calc {
     private static final String NOTE = "What is the result of the expression?";
 
-    public static void startGame(String userName) {
-        String[][] questionsWithAnswers = new String[Settings.REPEAT_COUNT][2];
+    public static void startGame() {
+        String[] questions = new String[Settings.REPEAT_COUNT];
+        String[] answers = new String[Settings.REPEAT_COUNT];
 
         for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
             int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
             int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
             String operation = getRandomOperation();
 
-            int correctAnswerInt = operation.equals("*") ? randomValue1 * randomValue2 : randomValue1 + randomValue2;
+            int correctAnswerInt = 0;
 
-            questionsWithAnswers[qIndex][0] = randomValue1 + " " + operation + " " + randomValue2;
-            questionsWithAnswers[qIndex][1] = Integer.toString(correctAnswerInt);
+            switch (operation) {
+                case ("*"):
+                    correctAnswerInt = randomValue1 * randomValue2;
+                    break;
+                case ("-"):
+                    correctAnswerInt = randomValue1 - randomValue2;
+                    break;
+                default:
+                    correctAnswerInt = randomValue1 + randomValue2;
+            }
+
+            questions[qIndex] = randomValue1 + " " + operation + " " + randomValue2;
+            answers[qIndex] = Integer.toString(correctAnswerInt);
         }
 
-        Engine.playGame(userName, NOTE, questionsWithAnswers, true);
+        Engine.playGame(NOTE, questions, answers);
 
     }
 
     private static String getRandomOperation() {
-        String[] arr = {"*", "+"};
+        String[] arr = {"*", "+", "-"};
 
-        return arr[Settings.getRandom(0, 1)];
+        return arr[Settings.getRandom(0, 2)];
     }
 }

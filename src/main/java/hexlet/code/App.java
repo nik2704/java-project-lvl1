@@ -9,6 +9,7 @@ import hexlet.code.games.Progression;
 import java.util.Scanner;
 
 public class App {
+    private static final int GAME_NONE = 1;
     private static final int GAME_EVEN = 2;
     private static final int GAME_CALC = 3;
     private static final int GAME_GCD = 4;
@@ -33,8 +34,7 @@ public class App {
         int gameNumber = getGameNumber(GAMES);
 
         if (gameNumber > 0) {
-            String userName = Cli.greeting();
-            gameSwitcher(gameNumber, userName);
+            gameSwitcher(gameNumber);
         }
 
     }
@@ -56,22 +56,25 @@ public class App {
         return gameNumber;
     }
 
-    public static void gameSwitcher(int gameNumber, String userName) {
+    public static void gameSwitcher(int gameNumber) {
         switch (gameNumber) {
+            case (GAME_NONE):
+                Cli.greeting();
+                break;
             case (GAME_EVEN):
-                Even.startGame(userName);
+                Even.startGame();
                 break;
             case (GAME_CALC):
-                Calc.startGame(userName);
+                Calc.startGame();
                 break;
             case (GAME_GCD):
-                Gcd.startGame(userName);
+                Gcd.startGame();
                 break;
             case (GAME_PROGRESSION):
-                Progression.startGame(userName);
+                Progression.startGame();
                 break;
             case (GAME_PRIME):
-                Prime.startGame(userName);
+                Prime.startGame();
                 break;
             default:
         }
