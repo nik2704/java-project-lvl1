@@ -2,17 +2,17 @@ package hexlet.code;
 
 import hexlet.code.env.Settings;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public final class Engine {
-    public static final String MSG_CORRECT_TEMPLATE = "Correct!";
 
     public static void playGame(String inviteMessage,
                                 String[] questions,
                                 String[] answers) {
         Scanner scanner = new Scanner(System.in);
 
-        String userName = Cli.greeting();
+        String userName = getUserName(scanner);
 
         boolean comparisonResult = false;
 
@@ -22,16 +22,10 @@ public final class Engine {
             Settings.printQuestion(questions[step]);
             String userAttemptStr = "";
 
-            if (isNumeric(answers[step])) {
-                int userAttemptInt = scanner.nextInt();
-                userAttemptStr = Integer.toString(userAttemptInt);
-                comparisonResult = userAttemptInt == Integer.parseInt(answers[step]);
-            } else {
-                userAttemptStr = scanner.nextLine().toLowerCase();
-                comparisonResult = userAttemptStr.equals(answers[step]);
-            }
+            userAttemptStr = scanner.nextLine().toLowerCase();
+            comparisonResult = Objects.equals(userAttemptStr, answers[step]);
 
-            String message = comparisonResult ? MSG_CORRECT_TEMPLATE : "'" + userAttemptStr
+            String message = comparisonResult ? "Correct!" : "'" + userAttemptStr
                     + "' is wrong answer ;(. Correct answer was '" + answers[step] + "'.";
 
             System.out.println(message);
@@ -48,17 +42,11 @@ public final class Engine {
         }
     }
 
-    private static boolean isNumeric(String string) {
-        if (string == null || string.equals("")) {
-            return false;
-        }
-
-        try {
-            Integer.parseInt(string);
-            return true;
-        } catch (NumberFormatException e) {
-        }
-
-        return false;
+    private static String getUserName(Scanner scanner) {
+        System.out.println("\nWelcome to the Brain Games!");
+        System.out.print("May I have your name? ");
+        String userName = scanner.nextLine();
+        System.out.println("Hello, " + userName + "!");
+        return userName;
     }
 }
