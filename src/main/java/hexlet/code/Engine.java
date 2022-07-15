@@ -1,52 +1,40 @@
 package hexlet.code;
 
-import hexlet.code.env.Settings;
-
 import java.util.Objects;
 import java.util.Scanner;
 
 public final class Engine {
+    public static final int REPEAT_COUNT = 3;
 
-    public static void playGame(String inviteMessage,
-                                String[] questions,
-                                String[] answers) {
+    public static void playGame(String inviteMessage, String[][] questionsWithAnswers) {
         Scanner scanner = new Scanner(System.in);
 
-        String userName = getUserName(scanner);
+        System.out.print("\nWelcome to the Brain Games!\nMay I have your name? ");
+        String userName = scanner.nextLine();
+        System.out.println("Hello, " + userName + "!");
 
         boolean comparisonResult = false;
 
         System.out.println(inviteMessage);
 
-        for (int step = 0; step < Settings.REPEAT_COUNT; step++) {
-            Settings.printQuestion(questions[step]);
+        for (int step = 0; step < REPEAT_COUNT; step++) {
+            System.out.print("Question: " + questionsWithAnswers[0][step] + "\nYour answer: ");
             String userAttemptStr = "";
 
             userAttemptStr = scanner.nextLine().toLowerCase();
-            comparisonResult = Objects.equals(userAttemptStr, answers[step]);
+            comparisonResult = Objects.equals(userAttemptStr, questionsWithAnswers[1][step]);
 
             String message = comparisonResult ? "Correct!" : "'" + userAttemptStr
-                    + "' is wrong answer ;(. Correct answer was '" + answers[step] + "'.";
+                    + "' is wrong answer ;(. Correct answer was '" + questionsWithAnswers[1][step] + "'.";
 
             System.out.println(message);
 
             if (!comparisonResult) {
-                break;
+                System.out.println("Let's try again, " + userName + "!");
+                return;
             }
         }
 
-        if (comparisonResult) {
-            System.out.println("Congratulations, " + userName + "!");
-        } else {
-            System.out.println("Let's try again, " + userName + "!");
-        }
-    }
-
-    private static String getUserName(Scanner scanner) {
-        System.out.println("\nWelcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        String userName = scanner.nextLine();
-        System.out.println("Hello, " + userName + "!");
-        return userName;
+        System.out.println("Congratulations, " + userName + "!");
     }
 }

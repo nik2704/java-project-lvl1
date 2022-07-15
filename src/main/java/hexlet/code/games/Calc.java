@@ -1,18 +1,19 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import hexlet.code.env.Settings;
+import hexlet.code.env.Utils;
 
 public final class Calc {
+    public static final int MIN_RANDOM_INT = 10;
+    public static final int MAX_RANDOM_INT = 50;
     private static final String NOTE = "What is the result of the expression?";
 
     public static void startGame() {
-        String[] questions = new String[Settings.REPEAT_COUNT];
-        String[] answers = new String[Settings.REPEAT_COUNT];
+        String[][] questionsWithAnswers = new String[2][Engine.REPEAT_COUNT];
 
-        for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
-            int randomValue1 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
-            int randomValue2 = Settings.getRandom(Settings.MIN_RANDOM_INT, Settings.MAX_RANDOM_INT);
+        for (int qIndex = 0; qIndex < Engine.REPEAT_COUNT; qIndex++) {
+            int randomValue1 = Utils.getRandom(MIN_RANDOM_INT, MAX_RANDOM_INT);
+            int randomValue2 = Utils.getRandom(MIN_RANDOM_INT, MAX_RANDOM_INT);
             String operation = getRandomOperation();
 
             int correctAnswerInt = 0;
@@ -28,17 +29,17 @@ public final class Calc {
                     correctAnswerInt = randomValue1 + randomValue2;
             }
 
-            questions[qIndex] = randomValue1 + " " + operation + " " + randomValue2;
-            answers[qIndex] = Integer.toString(correctAnswerInt);
+            questionsWithAnswers[0][qIndex] = randomValue1 + " " + operation + " " + randomValue2;
+            questionsWithAnswers[1][qIndex] = Integer.toString(correctAnswerInt);
         }
 
-        Engine.playGame(NOTE, questions, answers);
+        Engine.playGame(NOTE, questionsWithAnswers);
 
     }
 
     private static String getRandomOperation() {
-        String[] arr = {"*", "+", "-"};
+        String[] operationsList = {"*", "+", "-"};
 
-        return arr[Settings.getRandom(0, 2)];
+        return operationsList[Utils.getRandom(0, operationsList.length - 1)];
     }
 }

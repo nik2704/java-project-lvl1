@@ -1,9 +1,7 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import hexlet.code.env.Settings;
-
-import java.util.Arrays;
+import hexlet.code.env.Utils;
 
 public final class Progression {
     private static final int MAX_RANDOM_SEQUENCE_LENGTH = 15;
@@ -16,36 +14,29 @@ public final class Progression {
     private static final String NOTE = "What number is missing in the progression?";
 
     public static void startGame() {
-        String[] questions = new String[Settings.REPEAT_COUNT];
-        String[] answers = new String[Settings.REPEAT_COUNT];
+        String[][] questionsWithAnswers = new String[2][Engine.REPEAT_COUNT];
 
-        for (int qIndex = 0; qIndex < Settings.REPEAT_COUNT; qIndex++) {
-            int[] sequence = getSequence();
-            int answerIndex = Settings.getRandom(0, sequence.length - 1);
+        for (int qIndex = 0; qIndex < Engine.REPEAT_COUNT; qIndex++) {
+            int[] sequence = getSequence(
+                    Utils.getRandom(MIN_RANDOM_START_SEQUENCE_POINT, MAX_RANDOM_START_SEQUENCE_POINT),
+                    Utils.getRandom(MIN_RANDOM_SEQUENCE_INCREMENT, MAX_RANDOM_SEQUENCE_INCREMENT),
+                    Utils.getRandom(MIN_RANDOM_SEQUENCE_LENGTH, MAX_RANDOM_SEQUENCE_LENGTH)
+            );
+            int answerIndex = Utils.getRandom(0, sequence.length - 1);
 
-            answers[qIndex] = String.valueOf(sequence[answerIndex]);
-            questions[qIndex] = getQuestionString(sequence, answerIndex);
+            questionsWithAnswers[0][qIndex] = getQuestionString(sequence, answerIndex);
+            questionsWithAnswers[1][qIndex] = String.valueOf(sequence[answerIndex]);
         }
 
-        System.out.println(Arrays.toString(questions));
-        System.out.println(Arrays.toString(answers));
-        Engine.playGame(NOTE, questions, answers);
-
+        Engine.playGame(NOTE, questionsWithAnswers);
     }
 
-    private static int[] getSequence() {
-        int length =  Settings.getRandom(MIN_RANDOM_SEQUENCE_LENGTH,
-                MAX_RANDOM_SEQUENCE_LENGTH);
-
-        int increment = Settings.getRandom(MIN_RANDOM_SEQUENCE_INCREMENT,
-                MAX_RANDOM_SEQUENCE_INCREMENT);
-
+    private static int[] getSequence(int firstValue, int step, int length) {
         int[] sequence = new int[length];
-        sequence[0] = Settings.getRandom(MIN_RANDOM_START_SEQUENCE_POINT,
-                MAX_RANDOM_START_SEQUENCE_POINT);
+        sequence[0] = firstValue;
 
         for (int i = 1; i < length; i++) {
-            sequence[i] = sequence[i - 1] + increment;
+            sequence[i] = sequence[i - 1] + step;
         }
 
         return sequence;
